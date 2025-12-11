@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NoteWise - AI-Powered Learning Platform</title>
+    <style>
+        :root {
+            --color-primary: #2180a8;
+            --color-primary-hover: #1a6b8f;
+            --color-primary-dark: #0d4a6b;
+            --color-secondary: #5ea982;
+            --color-text: #1a1a1a;
+            --color-text-light: #666666;
+            --color-bg: #fafafa;
+            --color-surface: #ffffff;
+            --color-border: #e0e0e0;
+            --color-accent-1: #ff6b6b;
+            --color-accent-2: #ffd93d;
+            --color-accent-3: #6bcf7f;
+            --space-4: 4px;
+            --space-8: 8px;
+            --space-12: 12px;
+            --space-16: 16px;
+            --space-20: 20px;
+            --space-24: 24px;
+            --space-32: 32px;
+            --space-48: 48px;
+            --radius: 8px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: var(--color-text);
+            background-color: var(--color-bg);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            background: var(--color-surface);
+            border-bottom: 1px solid var(--color-border);
+            z-index: 100;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--space-16) var(--space-24);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--color-primary);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: var(--space-32);
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--color-text-light);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--color-primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: var(--space-48) var(--space-24);
+            text-align: center;
+        }
+
+        .hero-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: var(--space-16);
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 20px;
+            margin-bottom: var(--space-32);
+            opacity: 0.95;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: var(--space-16);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: var(--space-12) var(--space-24);
+            border: none;
+            border-radius: var(--radius);
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: white;
+            color: #667eea;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: #667eea;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-24);
+        }
+
+        /* Sections */
+        section {
+            padding: var(--space-48) var(--space-24);
+        }
+
+        .section-title {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: var(--space-32);
+            text-align: center;
+            color: var(--color-text);
+        }
+
+        .section-subtitle {
+            font-size: 18px;
+            color: var(--color-text-light);
+            text-align: center;
+            margin-bottom: var(--space-24);
+        }
+
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-32);
+            margin-bottom: var(--space-32);
+        }
+
+        .feature-card {
+            background: var(--color-surface);
+            padding: var(--space-32);
+            border-radius: var(--radius);
+            border: 1px solid var(--color-border);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 40px;
+            margin-bottom: var(--space-16);
+        }
+
+        .feature-card h3 {
+            font-size: 20px;
+            margin-bottom: var(--space-12);
+            color: var(--color-primary);
+        }
+
+        .feature-card p {
+            color: var(--color-text-light);
+            font-size: 15px;
+        }
+
+        /* Tech Stack */
+        .tech-stack {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: var(--space-20);
+            margin-bottom: var(--space-32);
+        }
+
+        .tech-item {
+            background: var(--color-surface);
+            padding: var(--space-20);
+            border-radius: var(--radius);
+            text-align: center;
+            border: 1px solid var(--color-border);
+        }
+
+        .tech-item strong {
+            display: block;
+            color: var(--color-primary);
+            margin-top: var(--space-8);
+            font-weight: 600;
+        }
+
+        /* Stats */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-32);
+            margin-bottom: var(--space-32);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 40px;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: var(--space-8);
+        }
+
+        .stat-label {
+            color: var(--color-text-light);
+            font-size: 16px;
+        }
+
+        /* About Section */
+        .about {
+            background: var(--color-surface);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-48);
+            align-items: center;
+        }
+
+        .about-text h3 {
+            font-size: 28px;
+            margin-bottom: var(--space-16);
+            color: var(--color-primary);
+        }
+
+        .about-text p {
+            color: var(--color-text-light);
+            margin-bottom: var(--space-16);
+            line-height: 1.8;
+        }
+
+        .about-highlight {
+            background: #e8f4f8;
+            padding: var(--space-20);
+            border-left: 4px solid var(--color-primary);
+            margin: var(--space-24) 0;
+            border-radius: var(--radius);
+        }
+
+        /* Impact Section */
+        .impact {
+            background: #f0f4f8;
+        }
+
+        .impact-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .impact-item {
+            display: flex;
+            gap: var(--space-20);
+            margin-bottom: var(--space-24);
+        }
+
+        .impact-icon {
+            font-size: 28px;
+            flex-shrink: 0;
+        }
+
+        .impact-item h4 {
+            font-size: 18px;
+            margin-bottom: var(--space-8);
+            color: var(--color-primary);
+        }
+
+        .impact-item p {
+            color: var(--color-text-light);
+            font-size: 15px;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 36px;
+            margin-bottom: var(--space-24);
+        }
+
+        .cta-section p {
+            font-size: 18px;
+            margin-bottom: var(--space-32);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--color-text);
+            color: white;
+            padding: var(--space-32) var(--space-24);
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: var(--space-24);
+            justify-content: center;
+            margin-bottom: var(--space-24);
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #aaa;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .nav-links {
+                gap: var(--space-16);
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="nav-logo">NoteWise</a>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#tech">Tech Stack</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#impact">Impact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <h1>NoteWise</h1>
+            <p>AI-Powered Notes Sharing & Learning Platform</p>
+            <p style="font-size: 16px; opacity: 0.9; margin-bottom: var(--space-24);">A revolutionary platform where teachers share knowledge and students learn smarter with AI assistance</p>
+            <div class="cta-buttons">
+                <a href="https://9000-firebase-studio-1765378713017.cluster-edb2jv34dnhjisxuq5m7l37ccy.cloudworkstations.dev" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Explore Platform</a>
+                <a href="#about" class="btn btn-secondary">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="container">
+        <h2 class="section-title">Features That Empower Learning</h2>
+        <p class="section-subtitle">Discover the tools that make NoteWise the ultimate learning companion</p>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">📤</div>
+                <h3>Seamless Uploads for Teachers</h3>
+                <p>Effortlessly upload PDF notes with titles, subjects, and tags. Manage all your materials in one organized dashboard.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🤖</div>
+                <h3>AI-Powered Insights</h3>
+                <p>Get instant AI-generated summaries of any document. Ask questions and get context-aware answers from our intelligent chatbot.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🔍</div>
+                <h3>Enhanced Student Browsing</h3>
+                <p>Explore a vast library of notes from all teachers. Search, filter, and download materials to supercharge your studies.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack Section -->
+    <section id="tech" class="tech-stack">
+        <div class="container">
+            <h2 class="section-title">Tech Stack</h2>
+            <p class="section-subtitle">Built with modern technologies and best practices</p>
+            
+            <div class="tech-grid">
+                <div class="tech-item">
+                    <span style="font-size: 28px;">⚛️</span>
+                    <strong>React</strong>
+                </div>
+                <div class="tech-item">
+                    <span style="font-size: 28px;">🔥</span>
+                    <strong>Firebase</strong>
+                </div>
+                <div class="tech-item">
+                    <span style="font-size: 28px;">🤖</span>
+                    <strong>Gemini API</strong>
+                </div>
+                <div class="tech-item">
+                    <span style="font-size: 28px;">💾</span>
+                    <strong>Firestore</strong>
+                </div>
+                <div class="tech-item">
+                    <span style="font-size: 28px;">📄</span>
+                    <strong>PDF.js</strong>
+                </div>
+                <div class="tech-item">
+                    <span style="font-size: 28px;">🎨</span>
+                    <strong>Tailwind CSS</strong>
+                </div>
+            </div>
+
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Cloud-Based</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">&lt;2s</div>
+                    <div class="stat-label">AI Response Time</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">∞</div>
+                    <div class="stat-label">Scalable</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container about-content">
+            <div class="about-text">
+                <h3>Why NoteWise?</h3>
+                <p>Traditional note-taking and sharing is fragmented. Students struggle to find quality study materials, and teachers have no centralized platform to share their expertise.</p>
+                
+                <div class="about-highlight">
+                    <strong>NoteWise solves this</strong> by creating a seamless ecosystem where knowledge flows freely, enhanced by AI intelligence that transforms passive reading into active learning.
+                </div>
+
+                <p><strong>Key Achievements:</strong></p>
+                <ul style="color: var(--color-text-light); margin-left: var(--space-24);">
+                    <li>✓ Full-stack AI integration with Gemini AI</li>
+                    <li>✓ Real-time PDF processing and analysis</li>
+                    <li>✓ Scalable Firebase backend with Firestore</li>
+                    <li>✓ Responsive React UI for all devices</li>
+                    <li>✓ Context-aware AI chatbot for each document</li>
+                </ul>
+            </div>
+
+            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: var(--space-48); border-radius: var(--radius); color: white;">
+                <h3 style="color: white; margin-bottom: var(--space-24);">Built by a CS Student for Learners</h3>
+                <p>This project demonstrates full-stack development expertise, from frontend React components to backend Firebase logic, AI integration, and deployment.</p>
+                <p style="margin-top: var(--space-16); font-size: 14px; opacity: 0.9;"><em>Roll No: 24B11AI033 | Aditya University</em></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Impact Section -->
+    <section id="impact" class="impact">
+        <div class="container">
+            <h2 class="section-title">Real-World Impact</h2>
+            <p class="section-subtitle">How NoteWise transforms education</p>
+
+            <div class="impact-list">
+                <div class="impact-item">
+                    <div class="impact-icon">🎓</div>
+                    <div>
+                        <h4>For Students</h4>
+                        <p>Access curated notes from expert teachers instantly. Ask AI questions about complex topics and get personalized explanations in seconds.</p>
+                    </div>
+                </div>
+
+                <div class="impact-item">
+                    <div class="impact-icon">👨‍🏫</div>
+                    <div>
+                        <h4>For Teachers</h4>
+                        <p>Share your expertise with a global audience. Build a reputation as an educator while earning through a sustainable platform economy.</p>
+                    </div>
+                </div>
+
+                <div class="impact-item">
+                    <div class="impact-icon">🚀</div>
+                    <div>
+                        <h4>For Developers</h4>
+                        <p>This project showcases modern web development: React, Firebase, AI APIs, PDF processing, and cloud deployment—production-ready code.</p>
+                    </div>
+                </div>
+
+                <div class="impact-item">
+                    <div class="impact-icon">🌍</div>
+                    <div>
+                        <h4>For Education</h4>
+                        <p>Democratizing access to quality study materials. Bridging the gap between urban and rural education through technology.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section container">
+        <h2>Ready to Transform Your Learning?</h2>
+        <p>Join thousands of students and teachers using NoteWise to learn smarter, share knowledge, and grow together.</p>
+        <div class="cta-buttons">
+            <a href="#" class="btn btn-primary">Get Started as Student</a>
+            <a href="#" class="btn btn-secondary">Join as Teacher</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#">GitHub</a>
+                <a href="#">LinkedIn</a>
+                <a href="#">Twitter</a>
+                <a href="#">Contact</a>
+            </div>
+            <p>&copy; 2025 NoteWise. Built with ❤️ for the learning community.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll for nav links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href !== '#') {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
